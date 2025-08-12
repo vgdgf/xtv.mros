@@ -1,247 +1,631 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyShield - Python Script Encryption</title>
+    <title>منصة مروش - بيع وشراء حسابات الألعاب</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .code-container {
-            position: relative;
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #faf5ff;
         }
-        .code-container:hover .copy-btn {
-            opacity: 1;
+        .gradient-bg {
+            background: linear-gradient(135deg, #d4a5d8 0%, #a78bfa 100%);
         }
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            opacity: 0;
-            transition: opacity 0.3s;
+        .account-card {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
-        .glow {
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        .account-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
+        .status-available {
+            background-color: #86efac;
+            color: #166534;
         }
-        .file-input-wrapper input[type=file] {
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
+        .status-reserved {
+            background-color: #fcd34d;
+            color: #92400e;
+        }
+        .status-sold {
+            background-color: #fca5a5;
+            color: #991b1b;
+        }
+        .game-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+        }
+        .login-form {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .admin-panel {
+            min-height: calc(100vh - 80px);
+        }
+        .image-preview {
+            height: 150px;
+            object-fit: cover;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-    <div class="container mx-auto px-4 py-8">
-        <header class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-                <i class="fas fa-lock mr-2"></i>PyShield
-            </h1>
-            <p class="text-lg text-gray-400 max-w-2xl mx-auto">
-                One-click encryption for Python scripts. Keep your code secure while maintaining full functionality.
-            </p>
-        </header>
+<body class="text-gray-800">
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <i class="fas fa-gamepad text-2xl"></i>
+                <span class="text-xl font-bold">منصة مروش</span>
+            </div>
+            <div class="flex items-center space-x-6 space-x-reverse">
+                <a href="#accounts" class="hover:text-blue-200 transition">الحسابات</a>
+                <a href="#how-it-works" class="hover:text-blue-200 transition">كيفية الشراء</a>
+                <a href="#contact" class="hover:text-blue-200 transition">الدعم</a>
+                <button id="adminLoginBtn" class="bg-white text-purple-600 px-4 py-2 rounded-full font-medium hover:bg-purple-50 transition-all shadow">
+                    دخول المشرف
+                </button>
+            </div>
+        </div>
+    </nav>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold text-blue-400">
-                        <i class="fas fa-file-code mr-2"></i>Input Script
-                    </h2>
-                    <div class="file-input-wrapper">
-                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
-                            <i class="fas fa-upload mr-1"></i> Upload .py
-                        </button>
-                        <input type="file" id="fileInput" accept=".py" class="hidden">
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">منصة مروش لبيع حسابات الألعاب</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">منصة آمنة وموثوقة لشراء وبيع حسابات الألعاب بكل سهولة وأمان</p>
+            <a href="#accounts" class="bg-white text-purple-600 px-8 py-3 rounded-full font-bold text-lg hover:bg-purple-50 transition-all transform hover:scale-105 shadow-lg inline-block">
+                تصفح الحسابات المتاحة
+            </a>
+        </div>
+    </section>
+
+    <!-- Accounts Section -->
+    <section id="accounts" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">الحسابات المتاحة</h2>
+            
+            <!-- Search and Filters -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="relative flex-grow">
+                        <input type="text" placeholder="ابحث عن حساب..." class="w-full pr-10 pl-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
                     </div>
-                </div>
-                <div class="code-container bg-gray-900 rounded-lg p-4 h-96 overflow-auto relative">
-                    <button id="copyInputBtn" class="copy-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
-                        <i class="fas fa-copy mr-1"></i> Copy
-                    </button>
-                    <textarea id="inputCode" class="w-full h-full bg-transparent font-mono text-sm focus:outline-none resize-none" 
-                              placeholder="Paste your Python script here or upload a file..."></textarea>
+                    <div class="flex flex-wrap gap-2">
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">جميع الألعاب</option>
+                            <option value="fortnite">Fortnite</option>
+                            <option value="valorant">Valorant</option>
+                            <option value="pubg">PUBG</option>
+                            <option value="cod">Call of Duty</option>
+                            <option value="lol">League of Legends</option>
+                        </select>
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">جميع المستويات</option>
+                            <option value="low">مبتدئ</option>
+                            <option value="medium">متوسط</option>
+                            <option value="high">متقدم</option>
+                            <option value="pro">محترف</option>
+                        </select>
+                        <select class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">جميع الحالات</option>
+                            <option value="available">متاح</option>
+                            <option value="reserved">محجوز</option>
+                            <option value="sold">مباع</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-
-            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-xl font-semibold text-purple-400">
-                        <i class="fas fa-lock-open mr-2"></i>Encrypted Output
-                    </h2>
-                    <div class="flex space-x-2">
-                        <button id="downloadBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm disabled:opacity-50" disabled>
-                            <i class="fas fa-download mr-1"></i> Download
-                        </button>
-                        <button id="copyOutputBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm disabled:opacity-50" disabled>
-                            <i class="fas fa-copy mr-1"></i> Copy
-                        </button>
+            
+            <!-- Accounts Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Account Card 1 -->
+                <div class="account-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="relative">
+                        <img src="https://via.placeholder.com/600x400?text=Fortnite+Account" alt="Fortnite Account" class="w-full h-48 object-cover">
+                        <span class="status-available text-white text-sm font-bold px-3 py-1 rounded-full absolute top-3 left-3">متاح</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-xl">حساب Fortnite مستوى 200</h3>
+                                <p class="text-gray-600">مع 50 سكن نادر</p>
+                            </div>
+                            <img src="https://via.placeholder.com/60x60?text=Fortnite" alt="Fortnite" class="game-icon">
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-700 mb-2"><i class="fas fa-star text-yellow-400 mr-1"></i> مستوى: 200</p>
+                            <p class="text-gray-700 mb-2"><i class="fas fa-gem text-purple-500 mr-1"></i> 50 سكن نادر</p>
+                            <p class="text-gray-700"><i class="fas fa-trophy text-amber-500 mr-1"></i> 10 بطولات</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-2xl text-blue-600">$120</span>
+                            <button class="buy-btn bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition-all transform hover:scale-105 shadow-lg" data-id="post123" data-telegram="@ixcccccccccccccc">
+                                شراء الآن <i class="fas fa-shopping-cart ml-1"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="code-container bg-gray-900 rounded-lg p-4 h-96 overflow-auto relative">
-                    <button id="copyOutputBtn2" class="copy-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
-                        <i class="fas fa-copy mr-1"></i> Copy
-                    </button>
-                    <pre id="outputCode" class="font-mono text-sm whitespace-pre-wrap"></pre>
+                
+                <!-- Account Card 2 -->
+                <div class="account-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="relative">
+                        <img src="https://via.placeholder.com/600x400?text=Valorant+Account" alt="Valorant Account" class="w-full h-48 object-cover">
+                        <span class="status-reserved text-white text-sm font-bold px-3 py-1 rounded-full absolute top-3 left-3">محجوز</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-xl">حساب Valorant رايث 3</h3>
+                                <p class="text-gray-600">مع 20 سلاح نادر</p>
+                            </div>
+                            <img src="https://via.placeholder.com/60x60?text=Valorant" alt="Valorant" class="game-icon">
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-700 mb-2"><i class="fas fa-star text-yellow-400 mr-1"></i> رايث: 3</p>
+                            <p class="text-gray-700 mb-2"><i class="fas fa-gem text-purple-500 mr-1"></i> 20 سلاح نادر</p>
+                            <p class="text-gray-700"><i class="fas fa-trophy text-amber-500 mr-1"></i> 5 بطولات</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-2xl text-blue-600">$85</span>
+                            <button class="buy-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition" data-id="post456" data-telegram="@ixcccccccccccccc">
+                                شراء الآن <i class="fas fa-shopping-cart ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Account Card 3 -->
+                <div class="account-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <div class="relative">
+                        <img src="https://via.placeholder.com/600x400?text=PUBG+Account" alt="PUBG Account" class="w-full h-48 object-cover">
+                        <span class="status-sold text-white text-sm font-bold px-3 py-1 rounded-full absolute top-3 left-3">مباع</span>
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h3 class="font-bold text-xl">حساب PUBG كونكر 5</h3>
+                                <p class="text-gray-600">مع 30 مظهر نادر</p>
+                            </div>
+                            <img src="https://via.placeholder.com/60x60?text=PUBG" alt="PUBG" class="game-icon">
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-700 mb-2"><i class="fas fa-star text-yellow-400 mr-1"></i> كونكر: 5</p>
+                            <p class="text-gray-700 mb-2"><i class="fas fa-gem text-purple-500 mr-1"></i> 30 مظهر نادر</p>
+                            <p class="text-gray-700"><i class="fas fa-trophy text-amber-500 mr-1"></i> 8 بطولات</p>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-2xl text-blue-600">$65</span>
+                            <button class="buy-btn bg-gray-400 cursor-not-allowed text-white px-4 py-2 rounded-lg transition" disabled>
+                مباع <i class="fas fa-check ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-full font-bold transition-all transform hover:scale-105 shadow-lg">
+                    عرض المزيد من الحسابات
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">كيفية الشراء</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">1</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">اختر الحساب المناسب</h3>
+                    <p class="text-gray-600">تصفح الحسابات المتاحة واختر الحساب الذي يناسب احتياجاتك وميزانيتك</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">2</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">اضغط على زر الشراء</h3>
+                    <p class="text-gray-600">اضغط على زر "شراء الآن" وسيتم توجيهك تلقائيًا إلى تيليجرام</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="text-center p-6 bg-gray-50 rounded-xl shadow-sm">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">3</span>
+                    </div>
+                    <h3 class="font-bold text-xl mb-3">أكمل العملية مع البائع</h3>
+                    <p class="text-gray-600">تواصل مباشرة مع البائع عبر تيليجرام لإتمام عملية الشراء</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-blue-50 border border-blue-100 rounded-xl p-6 max-w-3xl mx-auto">
+                <h3 class="font-bold text-xl text-blue-800 mb-3 flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i> ملاحظة هامة
+                </h3>
+                <p class="text-blue-700">
+                    عند الضغط على زر الشراء، سيتم توجيهك مباشرة إلى محادثة تيليجرام مع صاحب الحساب (<span class="font-bold">@ixcccccccccccccc</span>) مع إرسال معرف الحساب المطلوب تلقائيًا لتسهيل العملية.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">الدعم والاتصال</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-4 flex items-center">
+                        <i class="fas fa-headset text-blue-600 mr-2"></i> الدعم الفني
+                    </h3>
+                    <p class="text-gray-600 mb-4">لأي استفسارات أو مشاكل تقنية، يمكنك التواصل مع فريق الدعم:</p>
+                    <a href="https://t.me/y_33s" target="_blank" class="inline-flex items-center bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        <i class="fab fa-telegram mr-2"></i> تواصل عبر تيليجرام
+                    </a>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="font-bold text-xl mb-4 flex items-center">
+                        <i class="fas fa-store text-blue-600 mr-2"></i> قناة العروض
+                    </h3>
+                    <p class="text-gray-600 mb-4">تابع أحدث العروض والحسابات الجديدة على قناتنا:</p>
+                    <a href="https://t.me/maroshstore" target="_blank" class="inline-flex items-center bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-full transition-all transform hover:scale-105 shadow-lg">
+                        <i class="fab fa-telegram mr-2"></i> انضم إلى القناة
+                    </a>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="text-center mb-12">
-            <button id="encryptBtn" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full text-lg glow transition-all duration-300 transform hover:scale-105">
-                <i class="fas fa-lock mr-2"></i> Encrypt Python Script
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2 space-x-reverse">
+                        <i class="fas fa-gamepad text-2xl"></i>
+                        <span class="text-xl font-bold">منصة مروش</span>
+                    </div>
+                    <p class="mt-2 text-blue-100">منصة آمنة لبيع وشراء حسابات الألعاب</p>
+                </div>
+                
+                <div class="flex space-x-4 space-x-reverse">
+                    <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-blue-800 hover:bg-blue-700 rounded-full flex items-center justify-center transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-blue-700 mt-8 pt-6 text-center text-blue-200">
+                <p>© 2023 منصة مروش. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="login-form rounded-xl w-full max-w-md mx-4">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold">دخول المشرف</h3>
+                    <button id="closeAdminModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form id="adminLoginForm">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">اسم المستخدم</label>
+                        <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">كلمة المرور</label>
+                        <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-bold transition">
+                        تسجيل الدخول
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel (hidden by default) -->
+    <div id="adminPanel" class="hidden">
+        <div class="bg-gray-800 text-white py-4 px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2 space-x-reverse">
+                <i class="fas fa-user-shield"></i>
+                <span class="font-bold">لوحة تحكم المشرف</span>
+            </div>
+            <button id="logoutAdmin" class="text-red-400 hover:text-red-300">
+                <i class="fas fa-sign-out-alt mr-1"></i> تسجيل الخروج
             </button>
         </div>
-
-        <div class="bg-gray-800 rounded-xl p-6 shadow-lg max-w-4xl mx-auto">
-            <h2 class="text-xl font-semibold text-green-400 mb-4">
-                <i class="fas fa-info-circle mr-2"></i>How It Works
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-gray-700 p-4 rounded-lg">
-                    <div class="text-blue-400 text-2xl mb-2">
-                        <i class="fas fa-key"></i>
-                    </div>
-                    <h3 class="font-medium mb-2">Secure Encryption</h3>
-                    <p class="text-gray-400 text-sm">Your code is transformed using advanced obfuscation techniques while maintaining full functionality.</p>
+        
+        <div class="admin-panel bg-gray-100 p-6">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-2xl font-bold mb-6">إدارة الحسابات</h2>
+                
+                <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                    <h3 class="font-bold text-xl mb-4 flex items-center">
+                        <i class="fas fa-plus-circle text-blue-600 mr-2"></i> إضافة حساب جديد
+                    </h3>
+                    
+                    <form id="addAccountForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2">اسم الحساب</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">اللعبة</label>
+                                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="">اختر اللعبة</option>
+                                    <option value="fortnite">Fortnite</option>
+                                    <option value="valorant">Valorant</option>
+                                    <option value="pubg">PUBG</option>
+                                    <option value="cod">Call of Duty</option>
+                                    <option value="lol">League of Legends</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">المستوى</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">السعر ($)</label>
+                                <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">الحالة</label>
+                                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                    <option value="available">متاح</option>
+                                    <option value="reserved">محجوز</option>
+                                    <option value="sold">مباع</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-gray-700 mb-2">العناصر الخاصة</label>
+                                <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="مثال: 50 سكن، 10 أسلحة">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-gray-700 mb-2">الوصف</label>
+                            <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <label class="block text-gray-700 mb-2">صور الحساب</label>
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
+                                <input type="file" id="accountImages" class="hidden" multiple>
+                                <label for="accountImages" class="cursor-pointer">
+                                    <i class="fas fa-cloud-upload-alt text-3xl text-blue-500 mb-2"></i>
+                                    <p class="text-gray-600">اسحب وأسقط الصور هنا أو انقر للاختيار</p>
+                                    <p class="text-sm text-gray-500 mt-1">يمكنك رفع حتى 5 صور</p>
+                                </label>
+                            </div>
+                            <div id="imagePreviews" class="flex flex-wrap gap-2 mt-3"></div>
+                        </div>
+                        
+                        <div class="mt-8 flex justify-end space-x-3 space-x-reverse">
+                            <button type="button" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition">
+                                إلغاء
+                            </button>
+                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-bold transition">
+                                حفظ الحساب
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="bg-gray-700 p-4 rounded-lg">
-                    <div class="text-purple-400 text-2xl mb-2">
-                        <i class="fas fa-bolt"></i>
+                
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <h3 class="font-bold text-xl p-6 border-b border-gray-200 flex items-center">
+                        <i class="fas fa-list-ul text-blue-600 mr-2"></i> الحسابات المضافة
+                    </h3>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-right">الصورة</th>
+                                    <th class="px-6 py-3 text-right">الاسم</th>
+                                    <th class="px-6 py-3 text-right">اللعبة</th>
+                                    <th class="px-6 py-3 text-right">السعر</th>
+                                    <th class="px-6 py-3 text-right">الحالة</th>
+                                    <th class="px-6 py-3 text-right">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <img src="https://via.placeholder.com/60x60?text=Fortnite" alt="Fortnite" class="w-12 h-12 rounded">
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">حساب Fortnite مستوى 200</td>
+                                    <td class="px-6 py-4">Fortnite</td>
+                                    <td class="px-6 py-4">$120</td>
+                                    <td class="px-6 py-4">
+                                        <span class="status-available text-white text-xs px-2 py-1 rounded-full">متاح</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <img src="https://via.placeholder.com/60x60?text=Valorant" alt="Valorant" class="w-12 h-12 rounded">
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">حساب Valorant رايث 3</td>
+                                    <td class="px-6 py-4">Valorant</td>
+                                    <td class="px-6 py-4">$85</td>
+                                    <td class="px-6 py-4">
+                                        <span class="status-reserved text-white text-xs px-2 py-1 rounded-full">محجوز</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <img src="https://via.placeholder.com/60x60?text=PUBG" alt="PUBG" class="w-12 h-12 rounded">
+                                    </td>
+                                    <td class="px-6 py-4 font-medium">حساب PUBG كونكر 5</td>
+                                    <td class="px-6 py-4">PUBG</td>
+                                    <td class="px-6 py-4">$65</td>
+                                    <td class="px-6 py-4">
+                                        <span class="status-sold text-white text-xs px-2 py-1 rounded-full">مباع</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-blue-600 hover:text-blue-800 mr-2">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600 hover:text-red-800">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <h3 class="font-medium mb-2">One-Click Process</h3>
-                    <p class="text-gray-400 text-sm">Just paste your code and click encrypt. No complex settings or configuration needed.</p>
-                </div>
-                <div class="bg-gray-700 p-4 rounded-lg">
-                    <div class="text-green-400 text-2xl mb-2">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <h3 class="font-medium mb-2">Runnable Output</h3>
-                    <p class="text-gray-400 text-sm">The encrypted script runs exactly like the original with no additional dependencies.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-gray-800 py-6 mt-12">
-        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
-            <p>© 2023 PyShield - Python Script Encryption Tool</p>
-            <p class="mt-2">All encrypted scripts remain fully functional with no modifications required.</p>
-        </div>
-    </footer>
-
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputCode = document.getElementById('inputCode');
-            const outputCode = document.getElementById('outputCode');
-            const encryptBtn = document.getElementById('encryptBtn');
-            const copyInputBtn = document.getElementById('copyInputBtn');
-            const copyOutputBtn = document.getElementById('copyOutputBtn');
-            const copyOutputBtn2 = document.getElementById('copyOutputBtn2');
-            const downloadBtn = document.getElementById('downloadBtn');
-            const fileInput = document.getElementById('fileInput');
-
-            // File upload handling
-            fileInput.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file && file.name.endsWith('.py')) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        inputCode.value = e.target.result;
-                    };
-                    reader.readAsText(file);
-                } else {
-                    alert('Please select a valid Python (.py) file');
-                }
-            });
-
-            // Copy buttons
-            copyInputBtn.addEventListener('click', function() {
-                inputCode.select();
-                document.execCommand('copy');
-                showTooltip(copyInputBtn, 'Copied!');
-            });
-
-            copyOutputBtn.addEventListener('click', copyOutput);
-            copyOutputBtn2.addEventListener('click', copyOutput);
-
-            function copyOutput() {
-                const range = document.createRange();
-                range.selectNode(outputCode);
-                window.getSelection().removeAllRanges();
-                window.getSelection().addRange(range);
-                document.execCommand('copy');
-                showTooltip(copyOutputBtn2, 'Copied!');
+        // Admin Login Modal
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const adminModal = document.getElementById('adminModal');
+        const closeAdminModal = document.getElementById('closeAdminModal');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const adminPanel = document.getElementById('adminPanel');
+        const logoutAdmin = document.getElementById('logoutAdmin');
+        
+        adminLoginBtn.addEventListener('click', () => {
+            adminModal.classList.remove('hidden');
+        });
+        
+        closeAdminModal.addEventListener('click', () => {
+            adminModal.classList.add('hidden');
+        });
+        
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = e.target[0].value;
+            const password = e.target[1].value;
+            
+            // Simple validation (in real app, this would be a server-side check)
+            if(username === 'admin' && password === '7107245131') {
+                adminModal.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                document.body.classList.add('overflow-hidden');
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة');
             }
-
-            function showTooltip(element, message) {
-                const tooltip = document.createElement('div');
-                tooltip.textContent = message;
-                tooltip.className = 'absolute bg-gray-900 text-white px-2 py-1 rounded text-xs whitespace-nowrap';
-                tooltip.style.top = '-30px';
-                tooltip.style.left = '50%';
-                tooltip.style.transform = 'translateX(-50%)';
+        });
+        
+        logoutAdmin.addEventListener('click', () => {
+            adminPanel.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        });
+        
+        // Buy Button Functionality
+        const buyButtons = document.querySelectorAll('.buy-btn');
+        buyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if(this.disabled) return;
                 
-                element.parentNode.style.position = 'relative';
-                element.parentNode.appendChild(tooltip);
-                
-                setTimeout(() => {
-                    tooltip.remove();
-                }, 2000);
-            }
-
-            // Download button
-            downloadBtn.addEventListener('click', function() {
-                if (!outputCode.textContent.trim()) return;
-                
-                const blob = new Blob([outputCode.textContent], { type: 'text/x-python' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'encrypted_script.py';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
+                const postId = this.getAttribute('data-id');
+                const telegramUsername = this.getAttribute('data-telegram');
+                window.open(`https://t.me/${telegramUsername}?start=${postId}`, '_blank');
             });
-
-            // Encryption function
-            encryptBtn.addEventListener('click', function() {
-                if (!inputCode.value.trim()) {
-                    alert('Please enter or upload a Python script to encrypt');
-                    return;
+        });
+        
+        // Image Upload Preview
+        const accountImages = document.getElementById('accountImages');
+        const imagePreviews = document.getElementById('imagePreviews');
+        
+        accountImages.addEventListener('change', function() {
+            imagePreviews.innerHTML = '';
+            
+            for(let i = 0; i < this.files.length; i++) {
+                if(i >= 5) break; // Limit to 5 images
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('image-preview', 'rounded-lg', 'border', 'border-gray-200');
+                    imagePreviews.appendChild(img);
                 }
-
-                const code = inputCode.value;
-                
-                // More robust encoding that preserves Python syntax
-                const encoded = btoa(unescape(encodeURIComponent(code)));
-                
-                // Create a self-decoding Python script with proper error handling
-                const pythonWrapper = `import base64\ntry:\n    exec(base64.b64decode("${encoded}").decode('utf-8'))\nexcept Exception as e:\n    print(f"Decryption error: {e}")`;
-                
-                outputCode.textContent = pythonWrapper;
-                
-                // Enable output buttons
-                copyOutputBtn.disabled = false;
-                copyOutputBtn2.disabled = false;
-                downloadBtn.disabled = false;
-                
-                // Add animation
-                encryptBtn.classList.add('animate-pulse');
-                setTimeout(() => {
-                    encryptBtn.classList.remove('animate-pulse');
-                }, 1000);
-            });
+                reader.readAsDataURL(this.files[i]);
+            }
+        });
+        
+        // Responsive Navigation
+        const mobileMenuBtn = document.createElement('button');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        mobileMenuBtn.className = 'md:hidden text-white text-2xl';
+        mobileMenuBtn.id = 'mobileMenuBtn';
+        
+        const nav = document.querySelector('nav > div');
+        nav.insertBefore(mobileMenuBtn, nav.children[1]);
+        
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'hidden md:hidden bg-blue-900 w-full py-4 px-6';
+        mobileMenu.id = 'mobileMenu';
+        
+        const navLinks = nav.querySelectorAll('a, button');
+        navLinks.forEach(link => {
+            const clone = link.cloneNode(true);
+            clone.className = 'block py-2 text-white hover:text-blue-200';
+            mobileMenu.appendChild(clone);
+        });
+        
+        nav.parentNode.insertBefore(mobileMenu, nav.nextSibling);
+        
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
         });
     </script>
 </body>
-</html>
+    </html>
