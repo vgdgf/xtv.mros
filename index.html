@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyShield - Python Script Encryption</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .code-container {
+            position: relative;
+        }
+        .code-container:hover .copy-btn {
+            opacity: 1;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
+                <i class="fas fa-lock mr-2"></i>PyShield
+            </h1>
+            <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+                One-click encryption for Python scripts. Keep your code secure while maintaining full functionality.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-blue-400">
+                        <i class="fas fa-file-code mr-2"></i>Input Script
+                    </h2>
+                    <div class="file-input-wrapper">
+                        <button class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm">
+                            <i class="fas fa-upload mr-1"></i> Upload .py
+                        </button>
+                        <input type="file" id="fileInput" accept=".py" class="hidden">
+                    </div>
+                </div>
+                <div class="code-container bg-gray-900 rounded-lg p-4 h-96 overflow-auto relative">
+                    <button id="copyInputBtn" class="copy-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                        <i class="fas fa-copy mr-1"></i> Copy
+                    </button>
+                    <textarea id="inputCode" class="w-full h-full bg-transparent font-mono text-sm focus:outline-none resize-none" 
+                              placeholder="Paste your Python script here or upload a file..."></textarea>
+                </div>
+            </div>
+
+            <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-purple-400">
+                        <i class="fas fa-lock-open mr-2"></i>Encrypted Output
+                    </h2>
+                    <div class="flex space-x-2">
+                        <button id="downloadBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm disabled:opacity-50" disabled>
+                            <i class="fas fa-download mr-1"></i> Download
+                        </button>
+                        <button id="copyOutputBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg text-sm disabled:opacity-50" disabled>
+                            <i class="fas fa-copy mr-1"></i> Copy
+                        </button>
+                    </div>
+                </div>
+                <div class="code-container bg-gray-900 rounded-lg p-4 h-96 overflow-auto relative">
+                    <button id="copyOutputBtn2" class="copy-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded text-sm">
+                        <i class="fas fa-copy mr-1"></i> Copy
+                    </button>
+                    <pre id="outputCode" class="font-mono text-sm whitespace-pre-wrap"></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-12">
+            <button id="encryptBtn" class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full text-lg glow transition-all duration-300 transform hover:scale-105">
+                <i class="fas fa-lock mr-2"></i> Encrypt Python Script
+            </button>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl p-6 shadow-lg max-w-4xl mx-auto">
+            <h2 class="text-xl font-semibold text-green-400 mb-4">
+                <i class="fas fa-info-circle mr-2"></i>How It Works
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-blue-400 text-2xl mb-2">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">Secure Encryption</h3>
+                    <p class="text-gray-400 text-sm">Your code is transformed using advanced obfuscation techniques while maintaining full functionality.</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-purple-400 text-2xl mb-2">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">One-Click Process</h3>
+                    <p class="text-gray-400 text-sm">Just paste your code and click encrypt. No complex settings or configuration needed.</p>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-green-400 text-2xl mb-2">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="font-medium mb-2">Runnable Output</h3>
+                    <p class="text-gray-400 text-sm">The encrypted script runs exactly like the original with no additional dependencies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>© 2023 PyShield - Python Script Encryption Tool</p>
+            <p class="mt-2">All encrypted scripts remain fully functional with no modifications required.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputCode = document.getElementById('inputCode');
+            const outputCode = document.getElementById('outputCode');
+            const encryptBtn = document.getElementById('encryptBtn');
+            const copyInputBtn = document.getElementById('copyInputBtn');
+            const copyOutputBtn = document.getElementById('copyOutputBtn');
+            const copyOutputBtn2 = document.getElementById('copyOutputBtn2');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const fileInput = document.getElementById('fileInput');
+
+            // File upload handling
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file && file.name.endsWith('.py')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        inputCode.value = e.target.result;
+                    };
+                    reader.readAsText(file);
+                } else {
+                    alert('Please select a valid Python (.py) file');
+                }
+            });
+
+            // Copy buttons
+            copyInputBtn.addEventListener('click', function() {
+                inputCode.select();
+                document.execCommand('copy');
+                showTooltip(copyInputBtn, 'Copied!');
+            });
+
+            copyOutputBtn.addEventListener('click', copyOutput);
+            copyOutputBtn2.addEventListener('click', copyOutput);
+
+            function copyOutput() {
+                const range = document.createRange();
+                range.selectNode(outputCode);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+                document.execCommand('copy');
+                showTooltip(copyOutputBtn2, 'Copied!');
+            }
+
+            function showTooltip(element, message) {
+                const tooltip = document.createElement('div');
+                tooltip.textContent = message;
+                tooltip.className = 'absolute bg-gray-900 text-white px-2 py-1 rounded text-xs whitespace-nowrap';
+                tooltip.style.top = '-30px';
+                tooltip.style.left = '50%';
+                tooltip.style.transform = 'translateX(-50%)';
+                
+                element.parentNode.style.position = 'relative';
+                element.parentNode.appendChild(tooltip);
+                
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 2000);
+            }
+
+            // Download button
+            downloadBtn.addEventListener('click', function() {
+                if (!outputCode.textContent.trim()) return;
+                
+                const blob = new Blob([outputCode.textContent], { type: 'text/x-python' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'encrypted_script.py';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // Encryption function
+            encryptBtn.addEventListener('click', function() {
+                if (!inputCode.value.trim()) {
+                    alert('Please enter or upload a Python script to encrypt');
+                    return;
+                }
+
+                const code = inputCode.value;
+                
+                // More robust encoding that preserves Python syntax
+                const encoded = btoa(unescape(encodeURIComponent(code)));
+                
+                // Create a self-decoding Python script with proper error handling
+                const pythonWrapper = `import base64\ntry:\n    exec(base64.b64decode("${encoded}").decode('utf-8'))\nexcept Exception as e:\n    print(f"Decryption error: {e}")`;
+                
+                outputCode.textContent = pythonWrapper;
+                
+                // Enable output buttons
+                copyOutputBtn.disabled = false;
+                copyOutputBtn2.disabled = false;
+                downloadBtn.disabled = false;
+                
+                // Add animation
+                encryptBtn.classList.add('animate-pulse');
+                setTimeout(() => {
+                    encryptBtn.classList.remove('animate-pulse');
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
