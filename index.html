@@ -1,130 +1,358 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>آزورا 💖</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@400;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقدیم به مریم عزیزم ❤️ - یک تجربه لوکس</title>
+    <style>
+        /* تعیین فونت‌های لوکس فارسی */
+        @font-face {
+            font-family: 'Nazanin';
+            src: url('Nazanin.woff2') format('woff2'),
+                 url('Nazanin.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Vazirmatn'; /* یک فونت مدرن‌تر برای بدنه */
+            src: url('Vazirmatn-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-    font-family: 'Roboto', sans-serif;
-    height: 100vh;
-    background: radial-gradient(circle at center, #0a0a0a, #120036, #240050);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    perspective: 1000px;
-}
+        :root {
+            /* پالت رنگی لوکس و رمانتیک */
+            --header-color: #e60073; /* صورتی عمیق و ظریف */
+            --text-color: #e60073;
+            --main-font: 'Nazanin', 'Vazirmatn', Tahoma, sans-serif;
+            --body-font: 'Vazirmatn', Tahoma, sans-serif;
+        }
 
-/* النجوم الدوّارة */
-.star {
-    position: absolute;
-    width: 3px; height: 3px;
-    background: white;
-    border-radius: 50%;
-    animation: spin 20s linear infinite;
-}
+        /* --- 1. پس‌زمینه گرادینت متحرک لوکس --- */
+        body {
+            font-family: var(--body-font);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            
+            /* گرادینت اصلی */
+            background: linear-gradient(135deg, #ffd1e0, #ffccdd, #fff0f5, #f0e6ff, #f3e5f5, #fffcfc);
+            background-size: 400% 400%; /* ابعاد بزرگتر برای حرکت نرم */
+            animation: gradient-animation 25s ease infinite; /* انیمیشن آهسته و نرم */
+            color: #333;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
 
-@keyframes spin {
-    0% { transform: rotateY(0deg) rotateX(0deg) translateZ(200px); }
-    100% { transform: rotateY(360deg) rotateX(360deg) translateZ(200px); }
-}
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-/* القلوب المتطايرة */
-.heart {
-    position: absolute;
-    font-size: 2.5rem;
-    color: #ff4b5c;
-    animation: fly 5s linear infinite;
-}
+        /* --- 2. هدر لوکس --- */
+        header {
+            padding: 1.5rem 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            font-family: var(--main-font);
+            font-size: clamp(1.5rem, 5vw, 2.5rem); /* واکنش‌گرایی اندازه فونت */
+            color: var(--header-color);
+            border-bottom: 3px solid var(--header-color);
+            text-shadow: 1px 1px 3px rgba(255, 182, 193, 0.8);
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
 
-@keyframes fly {
-    0% { transform: translateY(0) translateX(0) scale(1); opacity:1; }
-    50% { transform: translateY(-200px) translateX(50px) scale(1.2); opacity:0.8; }
-    100% { transform: translateY(-400px) translateX(-50px) scale(1); opacity:0; }
-}
+        /* --- 3. گرید دکمه‌های متراکم (بدون فضای خالی) --- */
+        .content-container {
+            flex-grow: 1;
+            padding: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
 
-/* صندوق الاسم والنص */
-.container {
-    position: relative;
-    text-align: center;
-    padding: 60px;
-    background: rgba(0,0,0,0.5);
-    border-radius: 25px;
-    box-shadow: 0 0 60px rgba(255,255,255,0.2);
-    backdrop-filter: blur(15px);
-    z-index: 1;
-    direction: rtl;
-    transform-style: preserve-3d;
-}
+        .button-grid {
+            display: grid;
+            /* ستون‌های کاملاً واکنش‌گرا و متراکم */
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); 
+            gap: 0.5rem;
+            flex-grow: 1;
+            align-content: stretch; /* تضمین می‌کند دکمه‌ها فضای عمودی را پر کنند */
+        }
 
-/* الاسم الكبير */
-h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 6rem;
-    background: linear-gradient(90deg, #ffd700, #ff6f91, #6a11cb, #2575fc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glowText 3s ease-in-out infinite alternate, rotate3d 10s linear infinite;
-}
+        /* دکمه‌های لوکس */
+        .message-button {
+            padding: 0.7rem 0.5rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: var(--body-font);
+            font-size: clamp(0.7rem, 2.5vw, 1rem);
+            font-weight: 600;
+            color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease-in-out;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            
+            /* گرادینت دکمه با تم صورتی-بنفش */
+            background: linear-gradient(135deg, #ff8fab, #e60073, #8a2be2); 
+            background-size: 200% 200%; 
+            /* برای اطمینان از اینکه دکمه‌ها فضای عمودی را پر کنند */
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            line-height: 1.2;
+        }
 
-@keyframes glowText {
-    0% { text-shadow: 0 0 10px #fff,0 0 20px #ffd700,0 0 30px #ff6f91,0 0 40px #6a11cb; }
-    100% { text-shadow: 0 0 20px #fff,0 0 40px #ffd700,0 0 60px #ff6f91,0 0 80px #6a11cb; }
-}
+        .message-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+            background-position: 100% 100%; /* تغییر حالت گرادینت روی هاور */
+        }
 
-@keyframes rotate3d {
-    0% { transform: rotateY(0deg); }
-    100% { transform: rotateY(360deg); }
-}
+        .message-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* واکنش‌گرایی برای موبایل */
+        @media (max-width: 600px) {
+            .button-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+        }
+        /* در صفحات کوچک‌تر، اندازه متن دکمه کوچک‌تر می‌شود تا متراکم بماند */
+        @media (max-width: 400px) {
+             .button-grid {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            }
+            .message-button {
+                font-size: 0.75rem;
+                padding: 0.5rem 0.2rem;
+            }
+        }
 
-/* نص التاريخ */
-h2 {
-    font-size: 2rem;
-    margin-top: 20px;
-    color: #ffd700;
-    text-shadow: 0 0 10px #ff6f91, 0 0 20px #6a11cb;
-}
 
-/* النصوص المتلألئة */
-p {
-    font-size: 1.3rem;
-    color: #ffe0e6;
-    margin-top: 15px;
-    line-height: 1.6;
-    animation: shineText 5s infinite alternate;
-}
+        /* --- 4. جعبه پیام لوکس و تعاملی --- */
+        #message-box {
+            padding: 1.5rem;
+            margin: 0.5rem;
+            min-height: 80px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 
+                        0 0 15px rgba(230, 0, 115, 0.4); /* سایه و درخشش اولیه */
+            transition: all 0.8s ease-in-out; /* انتقال نرم برای رنگ و سایه */
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+            /* گرادینت پیش‌فرض شفاف */
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(230, 0, 115, 0.3);
+            
+            /* تنظیمات متن پیام */
+            color: var(--text-color);
+            font-family: var(--main-font);
+            font-size: clamp(1rem, 4vw, 1.4rem);
+            line-height: 1.8;
+            font-weight: bold;
+        }
+        
+        /* کلاس برای تغییر رنگ هنگام نمایش پیام */
+        .message-box-active {
+            box-shadow: 0 10px 25px rgba(230, 0, 115, 0.5), 
+                        0 0 20px 5px rgba(255, 105, 180, 0.6); /* درخشش بیشتر */
+            border: 2px solid var(--text-color);
+            /* رنگ پس‌زمینه به صورت پویا توسط جاوا اسکریپت تغییر می‌کند */
+        }
 
-@keyframes shineText {
-    0% { text-shadow: 0 0 5px #fff; }
-    50% { text-shadow: 0 0 20px #ffd700,0 0 40px #ff6f91,0 0 60px #6a11cb; }
-    100% { text-shadow: 0 0 5px #fff; }
-}
+        /* --- نوار اسکرول سفارشی برای زیبایی بیشتر --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-</style>
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--header-color);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
-<!-- نجوم متعددة -->
-<div class="star" style="top:10%; left:20%;"></div>
-<div class="star" style="top:30%; left:70%;"></div>
-<div class="star" style="top:50%; left:40%;"></div>
-<div class="star" style="top:70%; left:80%;"></div>
-<div class="star" style="top:80%; left:10%;"></div>
 
-<!-- قلوب متعددة -->
-<div class="heart" style="left:20%; top:80%;">❤️</div>
-<div class="heart" style="left:50%; top:90%;">❤️</div>
-<div class="heart" style="left:70%; top:85%;">❤️</div>
+    <header>
+        ✨ مریمِ من، دنیای من ✨
+    </header>
 
-<div class="container">
-    <h1>آزورا</h1>
-    <h2>تاریخ تولد: ۱۶ / ۱۲ / ۲۰۰۰</h2>
-    <p>این صفحه مخصوص توست، عزیزم 💖</p>
-    <p>امیدوارم روزت پر از شادی و لبخند باشد ✨</p>
-</div>
+    <div class="content-container">
+        
+        <div class="button-grid" id="button-grid">
+            </div>
+
+        <div id="message-box">
+            <span id="message-text">روی یکی از گل‌های بالا کلیک کن تا پیامی برات باز بشه...</span>
+        </div>
+        
+    </div>
+
+    <script>
+        // تاریخ تولد: 21/11/2008 (30 آبان 1387 شمسی)
+        const birthDate = new Date('2008-11-21T00:00:00');
+        
+        // --- 4. مجموعه پیام‌های عاشقانه (حداقل 50 پیام) ---
+        const romanticMessages = [
+            "مریم زیبای من، تو قشنگ‌ترین اتفاق زندگی منی.",
+            "صدای قلبم فقط برای تو می‌تپه، مریم.",
+            "هر صبح با یاد تو آغاز می‌شود، ای زیباترین رویای من.",
+            "تو همون لبخندی هستی که به زندگی من معنی داد.",
+            "دنیای بدون تو، رنگ نداره.",
+            "فقط کافیه تو باشی تا همه چیز درست بشه.",
+            "نفس کشیدن در کنار تو، خودِ زندگیه.",
+            "هیچ چیز مثل چشم‌های تو، منو جذب نمی‌کنه.",
+            "تو معجزه زندگی من هستی، مریم جان.",
+            "قول میدم تا ابد عاشقت بمونم.",
+            "تو مثل ماه در شب‌های تاریک زندگی من می‌تابی.",
+            "قلب من خونه‌ی توست.",
+            "وقتی کنارمی، زمان متوقف میشه.",
+            "چقدر خوبه که تو مال منی.",
+            "تو آرامش محضی در هیاهوی این جهان.",
+            "دیدار تو بهترین هدیه دنیاست.",
+            "همیشه و همه‌جا مراقب خودت باش، عشق من.",
+            "تو نیمه‌ی گمشده‌ی روح منی.",
+            "مریم، تو دلیل شادی‌های منی.",
+            "عشق من به تو هر روز عمیق‌تر میشه.",
+            "چشمات مثل دو ستاره روشن، راه رو بهم نشون میدن.",
+            "با تو، هر روز یک ماجراجویی جدیده.",
+            "تو شعر عاشقانه زندگی منی.",
+            "زیباترین موسیقی، صدای خنده‌های توئه.",
+            "حتی یک لحظه دوری از تو سخته.",
+            "تو فراتر از یک عشق، تو روح منی.",
+            "بیا تا آخر دنیا دستت رو ول نکنم.",
+            "تو قلبم، جایی امن‌تر از آغوش تو نیست.",
+            "تو نور منی، تو هستی منی.",
+            "هر تپش قلبم، اسم تو رو صدا می‌زنه.",
+            "تو دلیل اصلی تداومم در این زندگی هستی.",
+            "مریم جان، تو خودِ عشقی.",
+            "وجودت، بزرگترین نعمت زندگی منه.",
+            "بهترین اتفاق، دوست داشتن توئه.",
+            "کاش زمان در کنار تو متوقف می‌شد.",
+            "تو مثل بهار، زندگی منو شکوفا کردی.",
+            "فدای مهربونی‌های قلب پاکت.",
+            "دوستت دارم، بی‌حد و مرز، بی‌انتها.",
+            "تو زیباترین قصه‌ی جهانی.",
+            "از خدا ممنونم که تو رو آفرید.",
+            "تو پاداش صبرهای منی.",
+            "هر نگاهت، یک دنیای جدید است.",
+            "تو گرانبهاترین الماس قلب منی.",
+            "با تو بودن، نهایت خوشبختی است.",
+            "مریم جان، تو ملکه‌ی قلب منی.",
+            "تو شیرین‌ترین رؤیای شب‌های منی.",
+            "تو تمام آن چیزی هستی که از زندگی می‌خواستم.",
+            "قلب من برای تو می‌تپد و تو برای من می‌مانی.",
+            "هرگز کسی جز تو در این قلب جا نخواهد داشت.",
+            "تو آغاز و پایان تمام آرزوهای منی."
+        ];
+
+        // پالت رنگ‌های پاستلی برای پس‌زمینه جعبه پیام
+        const pastelColors = [
+            '#ffe6f0', // صورتی بسیار روشن
+            '#ffd9cc', // هلویی روشن
+            '#ffe0cc', // کرمی روشن
+            '#ffd1e0', // بنفش صورتی روشن
+            '#ffccd5', // صورتی یاسی
+            '#f0fff0', // سبز بهاری بسیار روشن
+            '#e6e6fa'  // اسطوخودوسی روشن
+        ];
+        
+        const numButtons = 28; // حداقل 25 دکمه
+        const grid = document.getElementById('button-grid');
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+        
+        let lastMessageIndex = -1; // برای جلوگیری از تکرار پیام آخر
+        let messageHistory = {}; // برای ذخیره پیام‌های نمایش داده شده برای هر دکمه
+
+        // --- تولید دکمه‌ها ---
+        for (let i = 1; i <= numButtons; i++) {
+            const button = document.createElement('button');
+            button.className = 'message-button';
+            
+            // تولید متن‌های خلاقانه برای دکمه‌ها
+            let buttonText = '';
+            if (i <= 4) {
+                buttonText = `پیام عاشقانه ${i}`;
+            } else if (i <= 8) {
+                buttonText = `سورپرایز ${i - 4}`;
+            } else if (i <= 14) {
+                buttonText = `راز دل ${i - 8}`;
+            } else if (i <= 20) {
+                 buttonText = `قلب ${i - 14}`;
+            } else {
+                 buttonText = `گل ${i - 20}`;
+            }
+
+            button.textContent = buttonText;
+            button.setAttribute('data-index', i - 1); // یک دکمه می‌تواند چندین پیام را نشان دهد
+            button.onclick = handleButtonClick;
+            grid.appendChild(button);
+        }
+
+        // --- منطق تعاملی دکمه‌ها ---
+        function handleButtonClick(event) {
+            const button = event.currentTarget;
+            const buttonId = button.getAttribute('data-index');
+
+            if (!messageHistory[buttonId]) {
+                messageHistory[buttonId] = []; // آرایه برای پیام‌های استفاده شده این دکمه
+            }
+
+            let availableMessages = romanticMessages.filter(
+                (msg, index) => !messageHistory[buttonId].includes(index)
+            );
+
+            // اگر تمام پیام‌ها برای این دکمه استفاده شده باشند، از نو شروع می‌کنیم
+            if (availableMessages.length === 0) {
+                messageHistory[buttonId] = [];
+                availableMessages = romanticMessages;
+            }
+
+            // انتخاب یک پیام تصادفی از پیام‌های موجود
+            const randomIndex = Math.floor(Math.random() * availableMessages.length);
+            const messageToShow = availableMessages[randomIndex];
+            
+            // پیدا کردن ایندکس پیام در آرایه اصلی برای ذخیره در تاریخچه
+            const originalIndex = romanticMessages.indexOf(messageToShow);
+            messageHistory[buttonId].push(originalIndex);
+            
+            // --- نمایش پیام و تغییر رنگ ---
+            
+            // 1. نمایش پیام
+            messageText.textContent = messageToShow;
+
+            // 2. انتخاب رنگ پاستلی تصادفی
+            const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+
+            // 3. اعمال تغییرات بصری با انتقال نرم (CSS Transition)
+            messageBox.style.backgroundColor = `${randomColor}dd`; // شفافیت اضافه شد
+            messageBox.classList.add('message-box-active'); // فعال کردن استایل درخشش
+
+            // برای حفظ جلوه، می‌توانیم پس از چند ثانیه به حالت گرادینت شفاف برگردانیم (اختیاری)
+             // setTimeout(() => {
+             //     messageBox.classList.remove('message-box-active');
+             //     messageBox.style.backgroundColor = 'rgba(255, 255, 255, 0.8)'; 
+             // }, 5000); 
+        }
+
+    </script>
 </body>
 </html>
